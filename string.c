@@ -1,15 +1,17 @@
 #include <stdio.h>
-char* mistr_copy(char* s1, char* s2);
-char* mistr_copy(char* s1, char* s2);
-int str_len(char* c);
+#include <stdlib.h>
+
+char* mi_strcpy(char* s1, char* s2);
+int mi_strlen(char* c);
 int mi_strequals(char* s1, char* s2);
 char* mi_strcat(char* s1, char* s2);
+char* mi_strdup(char* str);
 
 int main(){
 
 	
-	char s1[100] = ", how are you?";
-	char s2[100] = ", how are you?";
+	char s1[100] = "abcd";
+	char s2[100] = "efgh";
 	mi_strcat(s1, s2);
 
 	//expected: Hi you there!, how are you?
@@ -17,21 +19,27 @@ int main(){
 
 	//expected: false (0)
 	printf("obtained:%d\n", mi_strequals(s1, s2));
+
+	char* cad_new = mi_strdup(s1);
+	printf("s1 is:%s\n",s1);
+	*s1 = 'O'; //to see if there are difference!
+	printf("s1 is:%s\n",s1);
+	printf("cad_new is:%s\n",cad_new);
 	
 }
 
-int str_len(char *c){
+int mi_strlen(char *c){
 	int length = 0;
 	char* ptr = c;
-	while(*(ptr++) != 0) length++;
+	while(*ptr++) length++;
 	return length;	
 }
 
-char *mistr_copy(char *s1, char *s2){
+char *mi_strcpy(char *s1, char *s2){
 	char* ptrs2 = s2;
 	char* ptrs1 = s1;
 	char final = '\0';
-	while(*ptrs2 !=0 || *ptrs1 !=0){
+	while(*ptrs2 || *ptrs1){
 		*(ptrs1++) = *(ptrs2++);
 	}
 	*ptrs1 = final;
@@ -53,5 +61,22 @@ int mi_strequals(char* s1, char* s2){
 		if(*s1++ != *s2++) return 0;
 	}
 	//return (*s1=='\0' && *s2=='\0');
-	return str_len(s1) != str_len(s2);
+	return mi_strlen(s1) != mi_strlen(s2);
+}
+
+char* mi_strdup(char* str){
+	
+	
+	char* ptr = malloc(mi_strlen(str)*sizeof(char));
+	mi_strcpy(ptr, str);
+	return ptr;
+	/*
+	printf("\nfunction mi_strdup: %c\n",*str);
+	while(*str){
+		*ptr++ = *str++;
+		printf("%c",*ptr);
+	}
+	printf("NO ENTRO");
+	return ptr;
+	*/
 }
