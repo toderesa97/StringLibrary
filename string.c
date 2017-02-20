@@ -2,17 +2,21 @@
 char* mistr_copy(char* s1, char* s2);
 char* mistr_copy(char* s1, char* s2);
 int str_len(char* c);
+int mi_strequals(char* s1, char* s2);
 char* mi_strcat(char* s1, char* s2);
 
 int main(){
 
 	
-	char s1[100] = "Hi you there!";
+	char s1[100] = ", how are you?";
 	char s2[100] = ", how are you?";
 	mi_strcat(s1, s2);
 
 	//expected: Hi you there!, how are you?
-	printf("expected:%s\n", s1);
+	printf("obtained:%s\n", s1);
+
+	//expected: false (0)
+	printf("obtained:%d\n", mi_strequals(s1, s2));
 	
 }
 
@@ -42,4 +46,12 @@ char* mi_strcat(char* s1, char* s2){
 		*(s1++) = *(s2++);
 	}
 	*s1 = '\0';
+}
+
+int mi_strequals(char* s1, char* s2){
+	while(*s1 != '\0' && *s2 != '\0'){
+		if(*s1++ != *s2++) return 0;
+	}
+	//return (*s1=='\0' && *s2=='\0');
+	return str_len(s1) != str_len(s2);
 }
