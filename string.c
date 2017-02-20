@@ -1,5 +1,6 @@
 #include <stdio.h>
 char* mistr_copy(char* s1, char* s2);
+int str_len(char* c);
 
 int main(){
 	
